@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/category")
 public class CategoryController {
@@ -18,4 +20,9 @@ public class CategoryController {
         categoryService.add(category);
         return Result.success();
     }
+    @GetMapping
+    public Result<List<Category>> list(){
+        return Result.success(categoryService.list());
+    }
+
 }
