@@ -25,4 +25,9 @@ public class CategoryController {
         return Result.success(categoryService.list());
     }
 
+    @GetMapping("/detail")
+    public Result<Category> detail(Integer id){
+        return Result.success(categoryService.findById(id));
+    }
+
 }
