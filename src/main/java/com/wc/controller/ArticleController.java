@@ -1,19 +1,23 @@
 package com.wc.controller;
 
+import com.wc.pojo.Article;
 import com.wc.pojo.Result;
+import com.wc.service.ArticleService;
 import com.wc.utils.JwtUtil;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletResponse;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
 @RestController
 @RequestMapping("/article")
 public class ArticleController {
+    @Autowired
+    private ArticleService articleService;
+
     @GetMapping("/list")
     public Result list(/*@RequestHeader(name = "Authorization") String token, HttpServletResponse response*/){
 //        try {
@@ -25,4 +29,13 @@ public class ArticleController {
 //        }
         return Result.success("文章");
     }
+
+
+    @PostMapping
+    public Result add(@RequestBody @Validated Article article)
+    {
+        articleService.add(article);
+        return Result.success();
+    }
+
 }
